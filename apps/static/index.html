@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Person Face Album</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>Person Face Album</h1>
+  <div id="stats">
+    <span><b id="stat-persons">-</b> 人</span>
+    <span><b id="stat-images">-</b> 张图</span>
+    <span><b id="stat-sources">-</b> 视频</span>
+    <span><b id="stat-disk">-</b></span>
+    <span style="margin-left:auto; color:#666;">刷新 ⟳ <a id="refresh">↻</a></span>
+  </div>
+  <div id="build-tip"></div>
+</header>
+
+<main>
+  <section id="album-section">
+    <h2>人员浏览</h2>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <section id="detail-section" style="display:none;">
+    <button id="back-btn">← 返回 Album</button>
+    <div id="detail"></div>
+  </section>
+</main>
+
+<dialog id="modal">
+  <img id="modal-img" alt="">
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

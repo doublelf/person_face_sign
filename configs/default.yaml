@@ -1,0 +1,72 @@
+# Person Face Sign - 默认配置
+
+# ========== 帧源 ==========
+frame_source:
+  width: 1280
+  height: 720
+  fps: 25
+  video_file: ""             # 用 --source 覆盖
+  loop: false
+
+# ========== 行人检测 (YOLOv8n) ==========
+yolov8_person:
+  hef: /home/seeed/wrm/reComputer-R20-CV/src/rpi5_hailo8_yolov8/model/yolov8n.hef
+  score_thresh: 0.40
+  input_size: [640, 640]
+
+# ========== 人脸检测 (SCRFD-10G) ==========
+scrfd_face:
+  hef: /usr/local/hailo/resources/models/hailo8/scrfd_10g.hef
+  score_thresh: 0.50
+  nms_iou_thresh: 0.50
+  pre_nms_topk: 1000
+  top_k: 10
+  input_size: [640, 640]
+
+# ========== 跟踪 (IoU Tracker) ==========
+tracker:
+  max_age: 30
+  min_hits: 2
+  iou_threshold: 0.30
+  sample_interval_frames: 60
+  max_samples_per_track: 3
+
+# ========== 嵌入 (ArcFace MobileFaceNet) ==========
+arcface_embed:
+  hef: /usr/local/hailo/resources/models/hailo8/arcface_mobilefacenet.hef
+  input_size: [112, 112]
+
+# ========== 聚类 (Faiss HNSW) ==========
+clustering:
+  distance_threshold: 0.55        # cosine distance, 越小越严格
+  min_face_w: 30
+  min_face_h: 30
+  min_face_score: 0.50
+
+# ========== 存储 ==========
+storage:
+  sqlite_db: data/gallery.db
+  faiss_path: data/gallery
+  save_aligned_faces: ""          # "" = 不保存, 否则路径
+  save_visualization: ""          # "" = 不保存, 否则路径
+
+# ========== 监控 ==========
+monitoring:
+  expose_metrics: true
+  metrics_port: 9090
+  log_fps_interval_s: 3.0
+  memory_warn_mb: 500
+  memory_kill_mb: 1500
+
+# ========== 后台 API ==========
+api:
+  host: 0.0.0.0
+  port: 8080
+  enable_admin_ui: true
+
+# ========== 异常处理 ==========
+resilience:
+  max_consecutive_failures: 5
+  reconnect_interval_s: 2.0
+  inference_timeout_s: 30.0
+  watchdog_heartbeat_s: 5.0
